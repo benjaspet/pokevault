@@ -1,0 +1,40 @@
+{
+  "name": "five-guesses",
+  "author": "Ben Petrillo",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint five-guesses --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "backend": "bun run src/backend/API.ts",
+    "backend:dev": "bun --watch run src/backend/API.ts"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "body-parser": "^1.20.2",
+    "bootstrap": "^5.3.3",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "groq-sdk": "^0.5.0",
+    "highlightjs": "^9.16.2",
+    "openai": "^4.53.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^7.15.0",
+    "@typescript-eslint/parser": "^7.15.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.7",
+    "typescript": "^5.2.2",
+    "vite": "^5.3.4"
+  }
+}

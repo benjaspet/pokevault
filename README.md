@@ -1,2 +1,4 @@
-# five-guesses
-You have five chances to guess the 6-digit code, where one digit has changed.
+### Five Guesses
+
+A simple game where you are given 5 chances to guess a number from 1 to 100.
+You may ask questions, as long as they are yes or no questions only.

@@ -17,7 +17,7 @@
 import Navbar from "./components/Navbar.tsx";
 import Hero from "./components/Hero.tsx";
 import Description from "./components/Description.tsx";
-import Game from "./components/Game.tsx";
+import Input from "./components/Input.tsx";
 import Footer from "./components/Footer.tsx";
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
         <Navbar />
         <Hero />
         <Description />
-        <Game />
+        <Input />
         <Footer />
     </>
   )

@@ -14,50 +14,32 @@
  * provided that credit is given to the original author(s).
  */
 
-import * as fs from "node:fs";
-import * as path from "node:path";
-
 import config from "./config/config.json";
-import OpenAI from "openai";
 
-import ChatCompletionMessageParam = OpenAI.Chat.Completions.ChatCompletionMessageParam;
+import ChatCompletionMessageParam = Groq.Chat.ChatCompletionMessageParam;
+import Groq from "groq-sdk";
 
-export default class FiveGuessesGame {
+export default class Durai {
 
-    private readonly model: OpenAI;
+    private readonly model: Groq;
     private readonly chats: ChatCompletionMessageParam[];
 
-    constructor(model: OpenAI) {
+    constructor(model: Groq) {
         this.model = model;
         this.chats = [];
     }
 
-    private genNumber() {
-        return Math.floor(Math.random() * 100) + 1;
-    }
-
-    public async start(): Promise<object> {
-        const num: number = this.genNumber();
-        const prompt: string = fs.readFileSync(path.resolve(__dirname + "/config", "prompt.txt"), "utf-8")
-            .replace(/\n/g, " ")
-            .replace(/\${num}/g, num.toString());
-        this.chats.push({ role: "user", content: prompt });
-        await this.model.chat.completions.create({
-            messages: this.chats,
-            model: config.model
-        });
-        return { num };
-    }
-
-    public async guess(guess: string): Promise<string> {
+    public async ask(q: string): Promise<string> {
         try {
-            this.chats.push({ role: "user", content: guess });
+            this.chats.push({ role: "user", content: "Only answer in paragraph format. No lists, no bullets, not bolding or italics. Plain text."})
+            this.chats.push({ role: "user", content: q });
             const completion = await this.model.chat.completions.create({
                 messages: this.chats,
                 model: config.model
             })
             const comp: string|null = completion.choices[0]?.message?.content;
-            return comp ? comp.toLowerCase().replace(".", "") : "";
+            comp ? this.chats.push({ role: "system", content: comp }) : null;
+            return comp ?? "";
         } catch (error: any) {
             console.error(error);
             return "";

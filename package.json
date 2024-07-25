@@ -8,8 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint five-guesses --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "backend": "bun run src/backend/API.ts",
-    "backend:dev": "bun --watch run src/backend/API.ts"
+    "backend": "bun run src/backend/API.ts --port 8005",
+    "backend:dev": "bun --watch run src/backend/API.ts --port 8005"
   },
   "dependencies": {
     "axios": "^1.7.2",
@@ -19,7 +19,6 @@
     "express": "^4.19.2",
     "groq-sdk": "^0.5.0",
     "highlightjs": "^9.16.2",
-    "openai": "^4.53.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

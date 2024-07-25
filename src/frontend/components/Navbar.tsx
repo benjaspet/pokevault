@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
             <div className="container">
                 <a href="" className="navbar-brand">
                     <img src={"./favicon.png"} className={"me-2 mb-1"} alt={""} width={"24"} height={"24"}/>
-                    Five Guesses
+                    Dur.ai
                 </a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
                     <span className="navbar-toggler-icon"></span>

@@ -22,22 +22,14 @@ const Description: React.FC = () => {
             <div className="container">
                 <div className="d-md-flex mt-3 mb-1 mx-lg-5">
                     <p>
-                        The objective of the game is to guess the hidden number between 0 and
-                        100 inclusive. The hidden number is chosen at random at the start of the
-                        game. The player has only 5 chances to guess the number using yes or no
-                        questions. The player can ask yes or no questions that relate to the number
-                        in question, or they can guess the number directly. The player will receive
-                        feedback in the form of a yes or no answer to their question. The player can
-                        use this feedback to deduce the hidden number.
+                        Our mission is to revolutionize education by harnessing the transformative
+                        power of artificial intelligence. We strive to make learning engaging,
+                        accessible, and effective for every student, regardless of their background
+                        or learning style. By integrating advanced AI technology, we provide
+                        personalized support that helps students explore, understand, and master
+                        school concepts in a way that resonates with them.
                     </p>
                 </div>
-                <ul className={"mx-lg-5"}>
-                    <li>The hidden number will always be between 0 and 100 inclusive.</li>
-                    <li>Only yes or no questions are allowed.</li>
-                    <li>You have a maximum of five guesses to decipher the number. Guesses include yes or no questions.</li>
-                    <li>The code is a single six-digit number.</li>
-                    <li>The game ends when the correct number is guessed, or the player runs out of guesses.</li>
-                </ul>
             </div>
         </section>
     );

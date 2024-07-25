@@ -14,19 +14,15 @@
  * provided that credit is given to the original author(s).
  */
 
-import FiveGuessesGame from "./FiveGuessesGame";
-import OpenAI from "openai";
+import Durai from "./Durai";
+import Groq from "groq-sdk";
 import config from "./config/config.json";
 import * as bodyParser from "body-parser";
 
 import express, {Express} from "express";
 import cors from "cors";
 
-const model: OpenAI = new OpenAI({
-    organization: config.organization,
-    project: config.project,
-    apiKey: config.api_key
-});
+const model: Groq = new Groq({ apiKey: config.api_key });
 
 const app: Express = express();
 
@@ -50,21 +46,11 @@ app.get("/", (_req, res, next) => {
     next();
 });
 
-const game = new FiveGuessesGame(model);
+const ai = new Durai(model);
 
-app.post("/api/start", async (_req, res) => {
-    try {
-        const completion = await game.start();
-        return res.status(200).json({ completion });
-    } catch (error: any) {
-        console.error(error);
-        return res.status(500).json({ error: "Internal Server Error" });
-    }
-});
-
-app.post("/api/guess", async (req, res) => {
+app.post("/api/ask", async (req, res) => {
     const { guess } = req.body;
-    const completion = await game.guess(guess);
+    const completion = await ai.ask(guess);
     return res.json({ completion });
 });
 

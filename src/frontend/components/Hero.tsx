@@ -22,16 +22,15 @@ const Hero: React.FC = () => {
         <section className="bg-dark text-light p-4 text-center">
             <div className="container">
                 <div className="p-5 align-items-center">
-                    <h1>Five Guesses</h1>
+                    <h1>Your Learning Companion</h1>
                     <p className="lead pt-2 pb-2">
-                        You have five chances to guess the correct number, from 0 to 100
-                        inclusive. You may ask yes or no questions. A very simple game, that I
-                        totally didn't whip up in 2 hours... Anyways, this thing is powered
-                        by React, Bootstrap v5, Node.js,
-                        and <a className={"link-success"} href={"https://openai.com/index/gpt-4/"}>GPT-4</a>.
+                        Transform your academic studies. Whether you're tackling complex math
+                        problems, exploring the wonders of science, or diving into the depths
+                        of history, we're here to help. Let's make learning engaging, effective,
+                        and fun.
                     </p>
                     <button className="btn btn-success btn-lg">
-                        Start playing!
+                        Get started!
                     </button>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-### Five Guesses
+### Dur.ai
 
-A simple game where you are given 5 chances to guess a number from 1 to 100.
-You may ask questions, as long as they are yes or no questions only.
+Transform your academic studies. Whether you're tackling complex math problems, exploring the wonders of science, 
+or diving into the depths of history, we're here to help. Let's make learning engaging, effective, and fun.

@@ -23,7 +23,7 @@ const Footer: React.FC = () => {
             <section className="d-flex justify-content-between p-4 bg-success">
                 <div className="me-5">
                     <span>
-                        Feel free to check out my projects and other work:
+                        Check out my other work!
                     </span>
                 </div>
                 <div>

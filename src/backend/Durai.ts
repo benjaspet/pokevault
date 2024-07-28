@@ -31,7 +31,7 @@ export default class Durai {
 
     public async ask(q: string): Promise<string> {
         try {
-            this.chats.push({ role: "user", content: "Only answer in paragraph format. No lists, no bullets, not bolding or italics. Plain text."})
+            this.chats.push ({ role: "user", content: "No use of nested list items please. If asked about your name, you are Dur.ai." });
             this.chats.push({ role: "user", content: q });
             const completion = await this.model.chat.completions.create({
                 messages: this.chats,
@@ -39,6 +39,7 @@ export default class Durai {
             })
             const comp: string|null = completion.choices[0]?.message?.content;
             comp ? this.chats.push({ role: "system", content: comp }) : null;
+            console.log(comp)
             return comp ?? "";
         } catch (error: any) {
             console.error(error);

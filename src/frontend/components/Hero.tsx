@@ -27,7 +27,8 @@ const Hero: React.FC = () => {
                         Transform your academic studies. Whether you're tackling complex math
                         problems, exploring the wonders of science, or diving into the depths
                         of history, we're here to help. Let's make learning engaging, effective,
-                        and fun.
+                        and fun. A trained model powered
+                        by <a className={"link-success link-underline-success"} href={"https://llama.meta.com/"} target={"_blank"}>Meta Llama 3.1</a>.
                     </p>
                     <button className="btn btn-success btn-lg">
                         Get started!

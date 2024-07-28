@@ -20,7 +20,7 @@ const Description: React.FC = () => {
     return (
         <section className="text-light bg-success p-3 font-monospace">
             <div className="container">
-                <div className="d-md-flex mt-3 mb-1 mx-lg-5">
+                <div className="d-md-flex mt-3 mb-1 mx-lg-5 mx-4 px-4">
                     <p>
                         Our mission is to revolutionize education by harnessing the transformative
                         power of artificial intelligence. We strive to make learning engaging,

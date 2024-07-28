@@ -61,7 +61,7 @@ const Input: React.FC = () => {
             <div className="container">
                 <form className={"bg-dark"} onSubmit={handleSubmit}>
                     {JSON.parse(localStorage.getItem("responses") || "[]").map((item: any, index: number) => (
-                        <div className="row border border-1 mx-0 p-2 mb-3 mx-5 rounded rounded-3" key={index}>
+                        <div className="row border border-1 mx-0 p-2 mb-3 rounded rounded-3" key={index}>
                             <div className="col-12 border border-1 border-success rounded rounded-3 py-3 px-3 mb-2">
                                 {item.question}
                             </div>

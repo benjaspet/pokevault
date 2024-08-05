@@ -1,42 +1,54 @@
-/*
- * Copyright © 2024 Ben Petrillo. All rights reserved.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
- * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
- * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
- * OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * All portions of this software are available for public use,
- * provided that credit is given to the original author(s).
- */
-
 import React from "react";
-import "../css/Footer.css";
 
 const Footer: React.FC = () => {
     return (
-        <footer className="text-center text-lg-start text-white bg-dark">
-            <section className="d-flex justify-content-between p-4 bg-success">
-                <div className="me-5">
-                    <span>
-                        Check out my other work!
-                    </span>
+        <footer className="footer">
+            <div className="bg-success">
+                <div className="container overflow-hidden">
+                    <div
+                        className="row gy-3 gy-md-5 gy-xl-0 align-items-center justify-content-center text-center">
+                        <div className="col-12 col-sm-6 d-flex justify-content-center p-4">
+                            <div
+                                className="footer-logo-wrapper d-flex flex-column flex-sm-row align-items-center justify-content-center m-0">
+                                <a href="https://www.tcgplayer.com/"
+                                   className="my-2 mb-sm-3 me-sm-2">
+                                    <img src="./tcgplayer-logo.png" alt="" height={45}/>
+                                </a>
+                                <a href="https://www.cardmarket.com/en">
+                                    <img src="./limitless-logo.png" alt="" height={45}/>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <a href="https://github.com/benjaspet" target="_blank" rel="noopener noreferrer" className="text-white me-4">
-                        <i className="fab fa-github"></i>
-                    </a>
-                    <a href="https://linkedin.com/in/ben-petrillo/" target="_blank" rel="noopener noreferrer" className="text-white me-4">
-                        <i className="fab fa-linkedin"></i>
-                    </a>
+            </div>
+            <div className="bg-success p-0 m-0">
+                <div className="container d-flex justify-content-center">
+                    <hr className="rounded bg-light my-1 w-75"/>
                 </div>
-            </section>
-            <div className="text-center p-4" style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}>
-                Copyright © 2024-Present <a className="text-white" href="https://benpetrillo.dev">Ben Petrillo</a>
+            </div>
+            <div className="bg-success">
+                <div className="container overflow-hidden py-4 py-md-4" style={{fontSize: 15}}>
+                    <div className="row">
+                        <div className="col">
+                            <p className="text-center px-3">
+                                The literal and graphical information presented on this site about
+                                Pokémon, including card images and card text, Pokémon, The Pokémon
+                                TCG, and The Pokémon TCG Online and its trademarks are © 1995-2021
+                                Nintendo, The Pokémon Company International, Inc, and GAMEFREAK.
+                                This website is not produced by, endorsed by, supported by, or
+                                affiliated with Nintendo, The Pokémon Company International, Inc, or
+                                GAMEFREAK.
+                            </p>
+                            <p className="text-center px-3 mb-0">
+                                Developed with ♥ by <a className={"link-light"}
+                                        href={"https://ponjo.benpetrillo.dev"}>
+                                Ponjo Studios
+                            </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </footer>
     );

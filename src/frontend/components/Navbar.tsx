@@ -19,25 +19,35 @@ import React from "react";
 const Navbar: React.FC = () => {
 
     return (
-        <nav className="navbar navbar-expand-lg bg-success navbar-dark py-3">
-            <div className="container">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-success py-3">
+            <div className="container d-flex flex-wrap collapse navbar-collapse">
                 <a href="" className="navbar-brand">
-                    <img src={"./favicon.png"} className={"me-2 mb-1"} alt={""} width={"24"} height={"24"}/>
-                    Dur.ai
+                    <img src={"./banner.png"} className={"me-2 mb-1"} alt={""} height={32}/>
                 </a>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#nav">
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="nav">
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item">
-                            <a href="https://docs.benpetrillo.dev" className="nav-link">
-                                Ponjo Studios
+                            <a href="https://docs.benpetrillo.dev" className="nav-link text-light">
+                                Card Database
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a href="https://benpetrillo.dev" className="nav-link">
-                                Meet The Developer
+                            <a href="https://benpetrillo.dev" className="nav-link text-light">
+                                Decklists
+                            </a>
+                        </li>
+                        <li className="nav-item">
+                            <a href="https://benpetrillo.dev" className="nav-link text-light">
+                                Franchise Content
+                            </a>
+                        </li>
+                        <li className="nav-item">
+                            <a href="https://benpetrillo.dev" className="nav-link text-light">
+                               More
                             </a>
                         </li>
                     </ul>

@@ -14,23 +14,23 @@
  * provided that credit is given to the original author(s).
  */
 
-import Navbar from "./components/Navbar.tsx";
-import Hero from "./components/Hero.tsx";
-import Description from "./components/Description.tsx";
-import Input from "./components/Input.tsx";
-import Footer from "./components/Footer.tsx";
+import React from "react";
 
-function App() {
+import Navbar from "./components/Navbar.tsx";
+import GalleryComponent from "./components/GalleryComponent.tsx";
+import Footer from "./components/Footer.tsx";
+import Topbar from "./components/Topbar.tsx";
+
+const App: React.FC = () => {
 
   return (
     <>
+        <Topbar />
         <Navbar />
-        <Hero />
-        <Description />
-        <Input />
+        <GalleryComponent />
         <Footer />
     </>
   )
 }
 
-export default App
+export default App;

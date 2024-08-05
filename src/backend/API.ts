@@ -14,15 +14,12 @@
  * provided that credit is given to the original author(s).
  */
 
-import Durai from "./Durai";
-import Groq from "groq-sdk";
 import config from "./config/config.json";
 import * as bodyParser from "body-parser";
 
 import express, {Express} from "express";
 import cors from "cors";
-
-const model: Groq = new Groq({ apiKey: config.api_key });
+import axios from "axios";
 
 const app: Express = express();
 
@@ -42,16 +39,27 @@ app.use(async (req, _res, next) => {
 });
 
 app.get("/", (_req, res, next) => {
-    res.send("Five Guesses API");
+    res.send("PokéVault Backend");
     next();
 });
 
-const ai = new Durai(model);
+app.get("/api/v1/search", async (req, res) => {
+    const pokemon = req.query.q as string;
+    const response = await axios.get(`https://api.pokemontcg.io/v2/cards?q=name:"${decodeURIComponent(pokemon)}"&limit=750"`, {
+        headers: {
+            "X-Api-Key": config.api_key
+        }
+    });
+    res.send(response.data);
+});
 
-app.post("/api/ask", async (req, res) => {
-    const { guess } = req.body;
-    const completion = await ai.ask(guess);
-    return res.json({ completion });
+app.get("/api/v1/search/order", async (req, res) => {
+    const response = await axios.get(`https://api.pokemontcg.io/v2/cards?orderBy=${req.query.orderBy}&limit=750"`, {
+        headers: {
+            "X-Api-Key": config.api_key
+        }
+    });
+    res.send(response.data);
 });
 
 app.listen(config.port, () => console.log(`Running: ${config.port}`));

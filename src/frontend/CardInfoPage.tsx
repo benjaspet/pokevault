@@ -15,24 +15,21 @@
  */
 
 import React from "react";
-
-import Navbar from "./components/Navbar.tsx";
-import GalleryComponent from "./components/GalleryComponent.tsx";
-import Footer from "./components/Footer.tsx";
 import Topbar from "./components/Topbar.tsx";
-import PageSpecificTitle from "./components/PageSpecificMetadata.tsx";
+import Navbar from "./components/Navbar.tsx";
+import CardInfo from "./components/CardInfo.tsx";
+import Footer from "./components/Footer.tsx";
 
-const App: React.FC = () => {
+const CardInfoPage: React.FC = () => {
 
-  return (
-    <>
-        <PageSpecificTitle title={"PokéVault | Home"} />
-        <Topbar />
-        <Navbar />
-        <GalleryComponent />
-        <Footer />
-    </>
-  )
+    return (
+        <>
+            <Topbar />
+            <Navbar />
+            <CardInfo />
+            <Footer />
+        </>
+    )
 }
 
-export default App;
+export default CardInfoPage;

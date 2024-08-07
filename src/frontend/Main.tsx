@@ -17,9 +17,14 @@
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import CardInfoPage from "./CardInfoPage.tsx";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-    <App />
+    <Router>
+        <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="/:cardId/view" element={<CardInfoPage />} />
+        </Routes>
+    </Router>
 )

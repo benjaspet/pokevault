@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import "../css/Footer.css";
+import { ICard } from "../types/ICard.ts";
 
-// Function to preload a single image
-const preloadImage = (src: string) => {
+const preloadImage = (src) => {
     return new Promise((resolve, reject) => {
         const img = new Image();
         img.src = src || "https://images.pokemoncard.io/images/assets/CardBack.jpg";
@@ -11,62 +12,97 @@ const preloadImage = (src: string) => {
     });
 };
 
-// Function to preload multiple images
-const preloadImages = (imagesArray: string[]) => {
+const preloadImages = (imagesArray) => {
     const promises = imagesArray.map((src) => preloadImage(src));
     return Promise.all(promises);
 };
 
-const CardGalleryComponent: React.FC = () => {
+const CardGalleryComponent = () => {
     const [loading, setLoading] = useState(true);
-    const [cards, setCards] = useState<any[]>([]);
-    const [imagesPreloaded, setImagesPreloaded] = useState(false);
+    const [cards, setCards] = useState<ICard[]>([]);
+    const [imagesPreloaded, setImagesPreloaded] = useState<Set<string>>(new Set());
+    const [page, setPage] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
+    const [query, setQuery] = useState("pikachu");
+    const [isInitialLoad, setIsInitialLoad] = useState(true);
+    const navigate = useNavigate();
+
+    const fetchCards = useCallback(async (searchQuery, pageNumber) => {
+        setLoading(true);
+        try {
+            const response = await fetch(`http://localhost:8005/api/v1/search?q=${searchQuery}&page=${pageNumber}`);
+            const data = await response.json();
+            if (data.data.length > 0) {
+                setCards((prevCards) => [...prevCards, ...data.data]);
+            } else {
+                setHasMore(false);
+            }
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        } finally {
+            setLoading(false);
+            setIsInitialLoad(false);
+        }
+    }, []);
 
     useEffect(() => {
-        // Fetch data when the component mounts
-        fetch("http://localhost:8005/api/v1/search/order?orderBy=name")
-            .then(response => response.json())
-            .then(data => {
-                setCards(data.data);
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error("Error fetching data:", error);
-                setLoading(false);
-            });
-    }, []); // Empty dependency array means this runs once on mount
+        fetchCards(query, page);
+    }, [page, query, fetchCards]);
 
     useEffect(() => {
         if (cards.length > 0) {
-            preloadImages(cards.map(card => card.images.small))
+            const newCardImages = cards.slice(imagesPreloaded.size).map(card => card.images.small);
+            preloadImages(newCardImages)
                 .then(() => {
-                    setImagesPreloaded(true);
+                    setImagesPreloaded(prevImages => new Set([...prevImages, ...newCardImages]));
                 })
                 .catch(() => {
                     console.error("Error preloading images");
                 });
         }
-    }, [cards]); // Preload images whenever cards change
+    }, [cards]);
 
-    const search = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault(); // Prevent form from submitting and refreshing the page
-
-        const inputElement = document.getElementById("pokemon-card-search") as HTMLInputElement;
-        const query = inputElement ? inputElement.value : "pikachu";
+    const search = async (event) => {
+        event.preventDefault();
+        const inputElement = document.getElementById("pokemon-card-search");
+        const searchQuery = inputElement ? inputElement.value : "pikachu";
 
         setLoading(true);
-        fetch(`http://localhost:8005/api/v1/search?q=${query}`)
-            .then(response => response.json())
-            .then(data => {
-                setCards(data.data);
-                console.log(data.data);
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error("Error fetching data:", error);
-                setLoading(false);
-            });
+        setIsInitialLoad(true);
+        setCards([]);
+        setPage(1);
+        setQuery(searchQuery);
+        setHasMore(true);
     };
+
+    const handleCardClick = (cardId) => {
+        navigate(`/${cardId}/view`);
+    };
+
+    const handleScroll = useCallback(() => {
+        if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 500 && hasMore && !loading) {
+            setPage((prevPage) => prevPage + 1);
+        }
+    }, [hasMore, loading]);
+
+    useEffect(() => {
+        const throttleScroll = (func, delay) => {
+            let lastCall = 0;
+            return function (...args) {
+                const now = new Date().getTime();
+                if (now - lastCall < delay) {
+                    return;
+                }
+                lastCall = now;
+                return func(...args);
+            };
+        };
+
+        const throttledHandleScroll = throttleScroll(handleScroll, 10);
+
+        window.addEventListener("scroll", throttledHandleScroll);
+        return () => window.removeEventListener("scroll", throttledHandleScroll);
+    }, [handleScroll]);
 
     return (
         <div className="container my-4 px-4">
@@ -82,18 +118,30 @@ const CardGalleryComponent: React.FC = () => {
                 </div>
             </form>
             <div className="row">
-                {loading || !imagesPreloaded ? (
+                {loading && isInitialLoad ? (
                     <div className="text-center">
                         <div className="spinner-border text-success" role="status">
                             <span className="visually-hidden">Loading...</span>
                         </div>
                     </div>
                 ) : (
-                    cards.map((card: any, index: number) => (
+                    cards.map((card, index) => (
                         <div className="col-6 col-sm-4 col-md-3 col-lg-2 mb-4" key={index}>
-                            <img src={card.images.small} className="card-img-top pokemon-card rounded" alt="Card"/>
+                            <img
+                                src={card.images.small}
+                                onClick={() => handleCardClick(card.id)}
+                                className={`card-img-top pokemon-card rounded loaded`}
+                                alt="Card"
+                            />
                         </div>
                     ))
+                )}
+                {loading && !isInitialLoad && (
+                    <div className="text-center">
+                        <div className="spinner-border text-success" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
                 )}
             </div>
         </div>

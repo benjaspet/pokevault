@@ -12,10 +12,10 @@ const Footer: React.FC = () => {
                                 className="footer-logo-wrapper d-flex flex-column flex-sm-row align-items-center justify-content-center m-0">
                                 <a href="https://www.tcgplayer.com/"
                                    className="my-2 mb-sm-3 me-sm-2">
-                                    <img src="./tcgplayer-logo.png" alt="" height={45}/>
+                                    <img src="/tcgplayer-logo.png" alt="" height={45}/>
                                 </a>
                                 <a href="https://www.cardmarket.com/en">
-                                    <img src="./limitless-logo.png" alt="" height={45}/>
+                                    <img src="/limitless-logo.png" alt="" height={45}/>
                                 </a>
                             </div>
                         </div>

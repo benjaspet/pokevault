@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import "../css/Footer.css";
 import { ICard } from "../types/ICard.ts";
 
-const preloadImage = (src) => {
+import config from "../../config/config.json";
+
+const preloadImage = (src: string) => {
     return new Promise((resolve, reject) => {
         const img = new Image();
         img.src = src || "https://images.pokemoncard.io/images/assets/CardBack.jpg";
@@ -12,7 +14,7 @@ const preloadImage = (src) => {
     });
 };
 
-const preloadImages = (imagesArray) => {
+const preloadImages = (imagesArray: string[]) => {
     const promises = imagesArray.map((src) => preloadImage(src));
     return Promise.all(promises);
 };
@@ -23,14 +25,14 @@ const CardGalleryComponent = () => {
     const [imagesPreloaded, setImagesPreloaded] = useState<Set<string>>(new Set());
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
-    const [query, setQuery] = useState("pikachu");
+    const [query, setQuery] = useState("");
     const [isInitialLoad, setIsInitialLoad] = useState(true);
     const navigate = useNavigate();
 
-    const fetchCards = useCallback(async (searchQuery, pageNumber) => {
+    const fetchCards = useCallback(async (searchQuery: string, pageNumber: number) => {
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost:8005/api/v1/search?q=${searchQuery}&page=${pageNumber}`);
+            const response = await fetch(`${config.host}/api/v1/search?q=${searchQuery}*&page=${pageNumber}`);
             const data = await response.json();
             if (data.data.length > 0) {
                 setCards((prevCards) => [...prevCards, ...data.data]);
@@ -62,10 +64,13 @@ const CardGalleryComponent = () => {
         }
     }, [cards]);
 
-    const search = async (event) => {
+    const search = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const inputElement = document.getElementById("pokemon-card-search");
-        const searchQuery = inputElement ? inputElement.value : "pikachu";
+        const inputElement = document.getElementById("pokemon-card-search") as HTMLInputElement | null;
+
+
+
+        const searchQuery = inputElement && inputElement.value ? inputElement.value : "";
 
         setLoading(true);
         setIsInitialLoad(true);
@@ -75,7 +80,8 @@ const CardGalleryComponent = () => {
         setHasMore(true);
     };
 
-    const handleCardClick = (cardId) => {
+
+    const handleCardClick = (cardId: string) => {
         navigate(`/${cardId}/view`);
     };
 
@@ -86,9 +92,9 @@ const CardGalleryComponent = () => {
     }, [hasMore, loading]);
 
     useEffect(() => {
-        const throttleScroll = (func, delay) => {
+        const throttleScroll = <T extends never[]>(func: (...args: T) => void, delay: number) => {
             let lastCall = 0;
-            return function (...args) {
+            return function (...args: T) {
                 const now = new Date().getTime();
                 if (now - lastCall < delay) {
                     return;
@@ -103,7 +109,7 @@ const CardGalleryComponent = () => {
         window.addEventListener("scroll", throttledHandleScroll);
         return () => window.removeEventListener("scroll", throttledHandleScroll);
     }, [handleScroll]);
-
+    
     return (
         <div className="container my-4 px-4">
             <form onSubmit={search}>

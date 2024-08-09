@@ -6,18 +6,18 @@ const Topbar: React.FC = () => {
             <div className="container">
                 <ul className="nav me-auto justify-content-center justify-content-lg-start">
                     <li className="nav-item">
-                        <a href="#" className="nav-link text-light px-2" aria-current="page">
+                        <a href="/" className="nav-link text-light px-2" aria-current="page">
                             Card Database
                         </a>
                     </li>
                     <li className="nav-item d-none d-sm-block">
-                        <a href="#" className="nav-link text-light px-2" aria-current="page">
-                            Decklists
+                        <a href="/sets" className="nav-link text-light px-2" aria-current="page">
+                            TCG Sets
                         </a>
                     </li>
                     <li className="nav-item d-none d-md-block">
-                        <a href="#" className="nav-link text-light px-2" aria-current="page">
-                            Content
+                        <a href="https://benpetrillo.dev" className="nav-link text-light px-2" aria-current="page">
+                            About The Developer
                         </a>
                     </li>
                 </ul>

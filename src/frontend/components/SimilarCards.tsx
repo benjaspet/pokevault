@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ICard } from "../types/ICard.ts";
 
+import config from "../../config/config.json";
+
 export interface ISimilarCardsProps extends Record<any, any> {
     query: string;
     setName: string;
@@ -26,7 +28,7 @@ const SimilarCards: React.FC<ISimilarCardsProps> = (props) => {
         });
     }
 
-    const handleCardClick = (cardId) => {
+    const handleCardClick = (cardId: string) => {
         smoothScrollToTop()
         navigate(`/${cardId}/view`);
     };
@@ -34,7 +36,7 @@ const SimilarCards: React.FC<ISimilarCardsProps> = (props) => {
     const fetchCards = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost:8005/api/v1/search?q=${encodeURIComponent(query)}&page=1&limit=6`);
+            const response = await fetch(`${config.host}/api/v1/search?q=${encodeURIComponent(query)}&page=1&limit=6`);
             const data = await response.json();
             console.log(data.data)
             if (data.data.length > 0) {
@@ -50,7 +52,7 @@ const SimilarCards: React.FC<ISimilarCardsProps> = (props) => {
     const fetchSameSetCards = async () => {
         setSameSetLoading(true);
         try {
-            const response = await fetch(`http://localhost:8005/api/v1/searchBySet?q=${setId}&limit=6`);
+            const response = await fetch(`${config.host}/api/v1/searchBySet?q=${setId}&limit=6`);
             const data = await response.json();
             console.log(data.data)
             if (data.data.length > 0) {
@@ -68,14 +70,14 @@ const SimilarCards: React.FC<ISimilarCardsProps> = (props) => {
         fetchSameSetCards();
     }, [query, setId]);
 
-    const handleImageLoad = (cardId) => {
+    const handleImageLoad = (cardId: string) => {
         setTimeout(() => {
             setLoadedImages(prevLoadedImages => new Set(prevLoadedImages).add(cardId));
         }, 100); // delay in milliseconds to ensure the transition takes place
     };
 
     return (
-        <div className="row justify-content-center mx-lg-5 mx-sm-2 mx-md-3">
+        <div className="row justify-content-center container px-lg-5 mx-lg-5 mx-sm-2 mx-md-3">
             <h4 className={"text-center mb-3"}>Similar Cards to {query}</h4>
             {loading ? (
                 <div className="text-center mb-4 mt-2">

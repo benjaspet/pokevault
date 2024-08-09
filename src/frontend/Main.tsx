@@ -19,12 +19,16 @@ import App from './App.tsx'
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import CardInfoPage from "./CardInfoPage.tsx";
+import SetsPage from "./SetsPage.tsx";
+import SetInfoPage from "./SetInfoPage.tsx";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <Router>
         <Routes>
             <Route path="/" element={<App />} />
             <Route path="/:cardId/view" element={<CardInfoPage />} />
+            <Route path="/sets" element={<SetsPage />} />
+          <Route path="/sets/:setId/view" element={<SetInfoPage />} />
         </Routes>
     </Router>
 )

@@ -14,7 +14,7 @@
  * provided that credit is given to the original author(s).
  */
 
-import config from "./config/config.json";
+import config from "../config/config.json";
 import * as bodyParser from "body-parser";
 
 import express, {Express} from "express";
@@ -56,7 +56,7 @@ app.get("/api/v1/search", async (req, res) => {
         const pokemon = req.query.q as string;
         const page = req.query.page as string;
         const limit = req.query.limit as string;
-        const response = await axios.get(`https://api.pokemontcg.io/v2/cards?q=name:"${encodeURIComponent(pokemon)}"&pageSize=24&page=${page}"`, {
+        const response = await axios.get(`https://api.pokemontcg.io/v2/cards?q=name:"${encodeURIComponent(pokemon)}"&pageSize=60&page=${page}&orderBy=name&select:id,images`, {
             headers: {
                 "X-Api-Key": config.api_key
             }
@@ -119,13 +119,30 @@ app.get("/api/v1/searchBySet", async (req, res) => {
         if (!response) {
             res.status(404).send("Card not found.");
         }
-        //console.log(response.data)
         const data = response.data;
         await shuffle(data.data)
         if (parseInt(limit) <= data.data.length) {
             const d = data.data.slice(0, parseInt(limit));
             return res.send({data: d});
         } else res.send(data);
+    } catch (e) {
+        console.error(e);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+app.get("/api/v1/search/setOrdered", async (req, res) => {
+    try {
+        const set = req.query.q as string;
+        const response = await axios.get(`https://api.pokemontcg.io/v2/cards?q=set.id:${encodeURIComponent(set)}&select=images,id&orderBy=number`, {
+            headers: {
+                "X-Api-Key": config.api_key,
+            }
+        });
+        if (!response) {
+            res.status(404).send("Card not found.");
+        }
+        return res.status(200).json(response.data);
     } catch (e) {
         console.error(e);
         res.status(500).send("Internal Server Error");
@@ -152,6 +169,30 @@ app.get("/api/v1/get/:id", async (req, res) => {
     });
     if (!response) {
         res.status(404).send("Card not found.");
+    }
+    res.send(response.data);
+});
+
+app.get("/api/v1/sets", async (_req, res) => {
+    const response = await axios.get("https://api.pokemontcg.io/v2/sets?orderBy=releaseDate", {
+        headers: {
+            "X-Api-Key": config.api_key,
+        }
+    });
+    if (!response) {
+        res.status(404).send("Sets not found.");
+    }
+    res.send(response.data);
+});
+
+app.get("/api/v1/sets/:id", async (req, res) => {
+    const response = await axios.get(`https://api.pokemontcg.io/v2/sets/${req.params.id}`, {
+        headers: {
+            "X-Api-Key": config.api_key,
+        }
+    });
+    if (!response) {
+        res.status(404).send("Set not found.");
     }
     res.send(response.data);
 });

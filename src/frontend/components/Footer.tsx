@@ -42,8 +42,8 @@ const Footer: React.FC = () => {
                             </p>
                             <p className="text-center px-3 mb-0">
                                 Developed with ♥ by <a className={"link-light"}
-                                        href={"https://ponjo.benpetrillo.dev"}>
-                                Ponjo Studios
+                                        href={"https://benpetrillo.dev"}>
+                                Ben Petrillo
                             </a>
                             </p>
                         </div>

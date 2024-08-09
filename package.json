@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint five-guesses --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint pokevault --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "backend": "bun run src/backend/API.ts --port 8005",
     "backend:dev": "bun --watch run src/backend/API.ts --port 8005"
@@ -37,6 +37,7 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
     "typescript": "^5.2.2",
-    "vite": "^5.3.4"
+    "vite": "^5.3.4",
+    "@types/bun": "latest"
   }
 }

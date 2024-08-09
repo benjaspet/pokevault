@@ -23,7 +23,7 @@
     background-color: #FFD940;
     margin-right: 5px;
 }
-.footer-copy{
+.footer-copy {
     font-size: 12px;
     padding-bottom: 15px;
 }
@@ -35,12 +35,13 @@
 
 .pokemon-card {
     opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .pokemon-card:hover {
     cursor: pointer;
     transform: scale(1.15);
+    transition: transform 0.2s ease-in-out;
 }
 
 .pokemon-card.loaded {
@@ -64,4 +65,18 @@
         max-width: 50%;
     }
 }
+
+/* Center the spinner */
+.container > .spinner-border {
+    margin: auto;
+}
+
+/* Ensure even margin on mobile */
+@media (max-width: 576px) {
+    .pokemon-card {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
 

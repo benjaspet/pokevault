@@ -1,4 +1,3 @@
-### Dur.ai
+### PokéVault
 
-Transform your academic studies. Whether you're tackling complex math problems, exploring the wonders of science, 
-or diving into the depths of history, we're here to help. Let's make learning engaging, effective, and fun.
+A platform that makes it easy to find and discover Pokémon trading cards. Integrating multiple APIs to fetch pricing data, competitivity, and more.
